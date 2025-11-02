@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>meKeLoTreng - Keragaman Budaya Indonesia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            min-height: calc(100vh - 20px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .menu-btn {
+            padding: 20px 10px;
+            border: none;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .menu-btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-materi { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .btn-video { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .btn-game { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .btn-soal { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .btn-tradisi { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .btn-rumah { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
+        .btn-pakaian { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333; }
+        .btn-lagu { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #333; }
+        .btn-tarian { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); color: #333; }
+        .btn-musik { background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%); }
+        .btn-kearifan { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }
+        .btn-back { background: linear-gradient(135deg, #f83600 0%, #f9d423 100%); }
+        .btn-exit { background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); }
+
+        .back-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .content-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .content-box h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .content-box p, .content-box ul {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .content-box ul {
+            margin-left: 20px;
+        }
+
+        .image-box {
+            width: 100%;
+            height: 200px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .game-area {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .game-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .game-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .game-option {
+            padding: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .game-option.correct {
+            background: #43e97b;
+        }
+
+        .game-option.wrong {
+            background: #f5576c;
+        }
+
+        .quiz-form {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .quiz-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .quiz-question {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .quiz-question h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .quiz-options label {
+            display: block;
+            padding: 10px;
+            background: #f8f9fa;
+            margin: 5px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .quiz-options input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .score-board {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .score-board h2 {
+            font-size: 48px;
+            margin: 20px 0;
+        }
+
+        .share-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .share-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .btn-print {
+            background: #4facfe;
+            color: white;
+        }
+
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+        }
+
+        .developer {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .developer strong {
+            color: #667eea;
+            font-size: 14px;
+        }
+
+        .word-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .word-box {
+            padding: 15px 10px;
+            background: #667eea;
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .word-box.selected {
+            background: #43e97b;
+        }
+
+        .word-box.correct {
+            background: #43e97b;
+            pointer-events: none;
+        }
+
+        .word-box.wrong {
+            background: #f5576c;
+        }
+
+        .word-box.used {
+            background: #ccc;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .answer-box {
+            width: 35px;
+            height: 40px;
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .answer-box.filled {
+            background: #e8eaf6;
+        }
+
+        .match-card {
+            padding: 15px;
+            background: white;
+            border: 3px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .match-card:active {
+            transform: scale(0.95);
+        }
+
+        .match-card.selected {
+            border-color: #667eea;
+            background: #e8eaf6;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.5);
+        }
+
+        .match-card.matched {
+            background: #43e97b;
+            border-color: #43e97b;
+            color: white;
+            pointer-events: none;
+        }
+
+        .clue-text {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+            color: #667eea;
+            font-size: 16px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .back-btn, .share-buttons {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎭 meKeLoTreng 🎭</h1>
+            <p>Mengenal Keragaman Budaya dan Kearifan Lokal Trenggalek</p>
+        </div>
+
+        <div class="content">
+            <!-- Menu Utama -->
+            <div id="mainMenu" class="content-section active">
+                <div class="menu-grid">
+                    <button class="menu-btn btn-materi" onclick="showSection('materiMenu')">📚 MATERI</button>
+                    <button class="menu-btn btn-video" onclick="showSection('videoMenu')">🎥 VIDEO PEMBELAJARAN</button>
+                    <button class="menu-btn btn-game" onclick="showSection('gameMenu')">🎮 GAME EDUKATIF</button>
+                    <button class="menu-btn btn-soal" onclick="showSection('quizIntro')">✍️ LATIHAN SOAL</button>
+                </div>
+                <button class="back-btn btn-exit" onclick="confirmExit()">🚪 KELUAR</button>
+                <div class="developer">
+                    <p>Developed by</p>
+                    <strong>ARIN EKO YULIANTO</strong>
+                </div>
+            </div>
+
+            <!-- Menu Materi -->
+            <div id="materiMenu" class="content-section">
+                <h2 style="color: #667eea; margin-bottom: 15px;">📚 Pilih Materi</h2>
+                <div class="menu-grid">
+                    <button class="menu-btn btn-tradisi" onclick="showSection('tradisiMenu')">🎊 Kearifan Lokal</button>
+                    <button class="menu-btn btn-rumah" onclick="showSection('rumahMenu')">🏠 Rumah Adat</button>
+                    <button class="menu-btn btn-pakaian" onclick="showSection('pakaianMenu')">👘 Pakaian Adat</button>
+                    <button class="menu-btn btn-lagu" onclick="showSection('laguMenu')">🎵 Lagu Daerah</button>
+                    <button class="menu-btn btn-tarian" onclick="showSection('tarianMenu')">💃 Tarian Daerah</button>
+                    <button class="menu-btn btn-musik" onclick="showSection('musikMenu')">🎸 Alat Musik</button>
+                    <button class="menu-btn btn-kearifan" onclick="showSection('kearifanMenu')">🌾 Kebiasaan Adat</button>
+                </div>
+                <button class="back-btn btn-back" onclick="showSection('mainMenu')">⬅️ Kembali</button>
+            </div>
+
+            <!-- Kearifan Lokal -->
+            <div id="tradisiMenu" class="content-section">
+                <h2 style="color: #667eea; margin-bottom: 15px;">🎊 Kearifan Lokal</h2>
+                
+                <div class="content-box">
+                    <h3>Cuci Negeri Soya (Ambon)</h3>
+                    <div class="image-box">
+                        <img src="asset/soya.jpg?w=400" alt="soya">
+                    </div>
+                    <p>Cuci negeri soya setiap tahunnya dilaksanakan masyarakat Ambon pada minggu kedua bulan Desember. Upacara adat ini bertujuan membersihkan negeri secara gotong royong untuk menjalin nilai persatuan dan persaudaraan  masyarakat Desa  Soya. Kegiatannya meliputi membersihkan lingkungan, rumah ibadah, dan fasilitas umum sebagai wujud syukur dan persiapan menyambut tahun baru.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Tradisi Sasi (Maluku dan Papua)</h3>
+                    <div class="image-box">
+                        <img src="asset/sasi.jpg?w=400" alt="sasi">
+                    </div>
+                    <p>Tradisi sasi  atau  dalam  istilah  lokal artinya  larangan   yang  terdapat   di daerah Maluku dan Papua. Tradisi sasi merupakan sebuah larangan untuk memanen atau mengambil sumber daya alam tertentu di wilayah adat selama  beberapa waktu. Tradisi ini merupakan larangan  memanen untuk jenis-jenis ikan tertentu.Tradisi ini bisa dilakukan di darat maupun di laut. Tradisi ini dilakukan secara turun-temurun oleh masyarakat Maluku dan Papua. Tradisi pun masih dilakukan hingga sekarang.  Tradisi dilakukan sebagai upaya untuk menjaga ekosistem dan populasi agar tidak rusak atau  habis. Tadisi ini menunjukkan kesadaran masyarakat dalam menjaga kelestarian lingkungan dan keberlanjutan alam.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Tradisi Bebie (Sumatera Selatan)</h3>
+                    <div class="image-box">
+                        <img src="asset/bebie.jpg?w=400" alt="bebie">
+                    </div>
+                    <p>Bebie  merupakan suatu  tradisi  menanam padi  secara bersama-sama. Tujuannya agar suatu proses panen dapat dengan cepat terselesaikan. Apabila panen telah selesai,  maka masyarakat akan mengadakan sebuah perayaan. Perayaan ini sebagai bentuk dari rasa syukur atas proses panen yang berhasil dan juga sukses. Tradisi Bebie ini terdapat di Muara Enim, Sumatra  Selatan. Tradisi ini memperkuat kebersamaan dan kekeluargaan antar warga.</p>
+                </div>
+			<div class="content-box">
+                    <h3>Tradisi te aro neweak lako (alam adalah aku)- Papua</h3>
+                    <div class="image-box">
+                        <img src="asset/tearo.jpg?w=400" alt="tearo">
+                    </div>
+                    <p>di Papua, terdapat  kepercayaan te aro neweak lako (alam adalah aku). Gunung Erstberg dan Grasberg dipercaya sebagai kepala mama, tanah dianggap sebagai bagian dari hidup manusia. Sehingga pemanfaatan sumber daya alam dilakukan secara hati- hati.</p>
+                </div>
+	
+		<div class="content-box">
+                    <h3>Tradisi Grebeg Besar- Yogyakarta</h3>
+                    <div class="image-box">
+                        <img src="asset/grebegbesar.jpg?w=400" alt="grebegbesar">
+                    </div>
+                    <p>Tradisi Grebeg besar biasanya dilaksanakan di Masjid  Gede  Kauman  Yogyakarta.  Tradisi  grebeg besar merupakan rangkaian perayaan Iduladha, Keraton Yogyakarta. Keraton Yogyakarta  menyediakan  tujuh  gunungan  berisi  hasil  bumi  sebagai  simbol sedekah   raja  kepada  rakyatnya  sekaligus  wujud  rasa  syukur  kepada  Tuhan.</p>
+                </div>	
+
+                <div class="content-box">
+                    <h3>Tradisi Grebeg Selo (Trenggalek)</h3>
+                    <div class="image-box">
+                        <img src="asset/selo.jpg?w=400" alt="selo">
+                    </div>
+                    <p>Grebeg Selo adalah tradisi tahunan di Trenggalek yang dilakukan untuk menghormati leluhur dan memohon keselamatan. Prosesi ini melibatkan arak-arakan budaya, pertunjukan seni, dan doa bersama. Masyarakat membawa berbagai hasil bumi sebagai ungkapan syukur. Tradisi ini menjadi ajang pelestarian budaya lokal dan mempererat persaudaraan. Waktu pelaksanaan: Bulan Selo dalam kalender Jawa, tepatnya pada hari Jumat Legi. Tujuan: Bagian dari upacara bersih desa, yang berfungsi untuk menjaga kebersihan dan kesucian lingkungan serta mempererat hubungan sosial di antara masyarakat.  Makna: Merupakan warisan budaya turun-temurun yang memadukan spiritualitas, kesenian, dan sejarah, serta menjadi wadah pelestarian budaya lokal. Kegiatan: Biasanya melibatkan berbagai kegiatan seperti pertunjukan kesenian tradisional, salah satunya adalah macapat, wayang kulit serta upacara adat lainnya.</p>
+		</div>
+
+                <div class="content-box">
+                    <h3>Tradisi Larung Sembonyo (Pantai Prigi)</h3>
+                    <div class="image-box">
+                        <img src="asset/sembonyo.jpg?w=400" alt="sembonyo">
+                    </div>
+                    <p>Larung Sembonyo adalah upacara adat yang merupakan tradisi nelayan di Pantai Prigi, Trenggalek. Berupa upacara syukur sedekah laut dengan melarung tumpeng raksasa dan sesaji ke tengah laut. Tradisi tahunan ini bertujuan untuk mengucapkan rasa syukur atas hasil laut yang melimpah dan memohon keselamatan saat melaut. Asal usul: Nama "Sembonyo" berasal dari tiruan mempelai dari adonan tepung beras ketan atau batang pisang yang dihias. Prosesi: Persiapan sesaji, termasuk tumpeng raksasa dan aneka hasil bumi. Prosesi arak-arakan tumpeng dan sesaji dari kantor kecamatan menuju pantai. Pelarungan tumpeng dan sesaji ke tengah laut oleh para nelayan, diikuti oleh puluhan perahu lainnya. Makna: Wujud syukur atas hasil laut. Harapan agar nelayan selalu diberikan keselamatan saat melaut. Menjadi daya tarik budaya yang melestarikan kearifan lokal. Tujuan: Menghidupi ekonomi lokal melalui gelaran acara. Menjaga dan melestarikan budaya maritim.</p> 
+		</div>
+
+                <div class="content-box">
+                    <h3>Tradisi Genduren</h3>
+                    <div class="image-box">
+                        <img src="asset/genduren.jpg?w=400" alt="genduren">
+                    </div>
+                    <p>Genduren adalah tradisi kenduri atau selamatan dalam budaya Jawa. Tradisi ini dilakukan untuk berbagai keperluan seperti syukuran, mengenang orang yang telah meninggal, atau memohon keselamatan. Genduren melibatkan doa bersama dan makan bersama dengan tetangga. Makanan yang disajikan biasanya berupa nasi tumpeng, ingkung ayam, dan berbagai jenis makanan tradisional.</p>
+		</div>
+
+                <div class="content-box">
+                    <h3>Tradisi Megengan</h3>
+                    <div class="image-box">
+                        <img src="asset/megengan.jpg?w=400" alt="megengan">
+                    </div>
+                    <p>Megengan adalah tradisi menyambut bulan Ramadan dalam budaya Jawa. Tradisi ini dilakukan dengan membuat berbagai macam makanan untuk dibagikan kepada tetangga dan kerabat. Megengan juga menjadi momen silaturahmi dan mempererat hubungan sosial. Tradisi ini mengajarkan nilai berbagi dan mempersiapkan diri menyambut bulan suci.</p>
+		</div>
+
+                <div class="content-box">
+                    <h3>Tradisi Kupatan</h3>
+                    <div class="image-box">
+                        <img src="asset/kupatan.jpg?w=400" alt="kupatan">
+                    </div>
+                    <p>Kupatan adalah tradisi perayaan setelah Idul Fitri dalam budaya Jawa. Tradisi ini dilakukan pada hari ke-7 setelah Lebaran pertama (1 syawal) dengan membuat ketupat dan berbagai makanan khas. Tradisi ini dari dulu sudah dilaksanakan turun temurun oleh masyarakat Durenan. Namun saat ini di kecamatan lain sudah mulai mengikuti tradisi kupatan sebagai perayaan setelah puasa sunah 6 hari setelah 1 syawal.  Dari kata Kupat yang artinya ngaku lepat, memiliki filosofi bahwa di hari kupatan itu kita saling mengakui kesalahan dan saling meminta maaf. Sedangkan bentuik kegiatannya, masyarakat saling berkunjung untuk bersilaturahmi dan bemaaf-maafan sambil berbagi makanan yang salah satunya adalah kupat itu sendiri. Kupatan menjadi simbol kerukunan dan kebersamaan antar umat beragama, karena tradisi tersebut tidak membatasi umat yang beragama islam saja akan tetapi umat beragama yang lain juga boleh bersilaturahmi ke tetangga untuk bermaaf maafan dan makan kupat bersama.</p>
+		</div>
+
+                <div class="content-box">
+                    <h3>Tradisi Nyadran</h3>
+                    <div class="image-box">
+                        <img src="asset/nyadran.jpg?w=400" alt="nyadran">
+                    </div>
+                    <p>Nyadran adalah tradisi membersihkan makam leluhur menjelang bulan Ramadan. Tradisi ini dilakukan secara gotong royong oleh masyarakat. Setelah membersihkan makam, dilanjutkan dengan doa bersama dan kenduri. Nyadran mengajarkan nilai menghormati leluhur dan menjaga kebersihan tempat pemakaman. Nyadran Trenggalek, atau dikenal sebagai Nyadran Dam Bagong, adalah tradisi tahunan masyarakat Trenggalek yang merupakan bentuk rasa syukur, penghormatan kepada leluhur seperti Ki Ageng Menak Sopal, dan pelestarian kearifan lokal. Inti dari tradisi ini adalah prosesi larung kepala kerbau ke Dam Bagong yang berfungsi sebagai pengatur irigasi, simbol kemakmuran dan keberkahan. Upacara adat ini dilaksanakan pada bulan Selo.</p>
+		</div>
+
+                <div class="content-box">
+                    <h3>Tradisi Ngitung Batih (Kec. Dongko)</h3>
+                    <div class="image-box">
+                        <img src="asset/batih.jpg?w=400" alt="batih">
+                    </div>
+                    <p>Ngitung batih merupakan tradisi upacara adat di Trenggalek, khususnya Kecamatan Dongko, yang bertujuan menghitung jumlah anggota keluarga (batih) dan mendoakan keselamatan serta keberkahan di tahun baru hijriah. Tradisi ini melibatkan pengumpulan sesaji seperti takir plonthang, kirab budaya, dan doa bersama untuk menghormati leluhur, mempererat silaturahmi, dan menjaga nilai-nilai kekeluargaan serta gotong royong. Upacara adat Ngitung Batih merupakan bentuk simbolisasi permohonan agar warga desa senantiasa diberkahi dengan kemakmuran, kesejahteraan, dan keselamatan. Ngitung batih telah ditetapkan sebagai Warisan Budaya Tak Benda (WBTB) oleh Kemendikbudristek RI.</p>
+		</div>
+
+                <div class="content-box">
+                    <h3>Tradisi Tiban (Trenggalek)</h3>
+                    <div class="image-box">
+                        <img src="asset/tiban.jpg?w=400" alt="tiban">
+                    </div>
+                    <p>Tiban adalah tradisi ritual perang cambuk yang dilakukan untuk meminta hujan saat kemarau panjang. Ritual ini melibatkan dua kelompok yang saling mencambuk dengan pecut dari lidi aren, diiringi musik gamelan, sebagai bagian dari kesenian dan pelestarian budaya. Selain untuk meminta hujan, Tiban juga menjadi hiburan dan ajang silaturahmi, serta dapat ditampilkan untuk acara-acara tertentu. Tiban merupakan tari atau ritual rakyat yang turun temurun menjadi bagian kebudayaan masyarakat Jawa Timur, terutama pada daerah Trenggalek, Blitar, Kediri dan Tulungagung. Tari Tiban selalu dipertujukkan saat musim kemarau. Tarian tiban adalah sebuah permintaan permohonan kepada yang maha kuasa berharap untuk diturunkanya hujan. Ada makna dalam dibalik ritual tarian tiban yaitu sebuah harapan sebuah pesan yang luhur demi lestarinya alam. Bukanlah kekerasan yang ditonjolkan melainkan nilai-nilai luhur atau sebuah pesan untuk menjaga keseimbangan alam.</p>
+		</div>
+
+                <div class="content-box">
+                    <h3>Tradisi Tingkeban/Mitoni</h3>
+                    <div class="image-box">
+                        <img src="asset/mitoni.jpg?w=400" alt="mitoni">
+                    </div>
+                    <p>Tingkeban atau Mitoni adalah upacara adat Jawa untuk kehamilan tujuh bulan. Upacara ini dilakukan untuk mendoakan keselamatan ibu dan bayi. Prosesi meliputi siraman, berganti pakaian, dan memecahkan kelapa. Tingkeban sarat dengan makna filosofis dan doa untuk kelancaran persalinan.Tujuan upacara Keselamatan ibu dan bayi: Mendoakan agar proses kelahiran berjalan lancar dan bayi tidak mengalami kekurangan atau bahaya. Syukur: Sebagai ungkapan terima kasih kepada Tuhan atas karunia kehamilan. Harapan: Mengharapkan anak yang lahir akan memiliki fisik dan mental yang sehat dan sempurna (jangkep dan genep). </p>
+		</div>
+
+                <button class="back-btn btn-back" onclick="showSection('materiMenu')">⬅️ Kembali</button>
+            </div>
+
+            <!-- Rumah Adat -->
+            <div id="rumahMenu" class="content-section">
+                <h2 style="color: #667eea; margin-bottom: 15px;">🏠 Rumah Adat Nusantara</h2>
+                
+                <div class="content-box">
+                    <h3>Rumah Joglo (Jawa)</h3>
+                    <div class="image-box">
+                        <img src="asset/joglo.jpg?w=400" alt="joglo">
+                    </div>
+                    <p>Joglo adalah rumah adat Jawa Tengah dengan atap berbentuk limas yang tinggi di bagian tengah. Memiliki empat tiang utama (soko guru) yang melambangkan empat arah mata angin. Rumah joglo mencerminkan filosofi keseimbangan dan keharmonisan.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Rumah Gadang (Sumatera)</h3>
+                    <div class="image-box">
+                        <img src="asset/gadang.jpg?w=400" alt="gadang">
+                    </div>
+                    <p>Rumah Gadang adalah rumah adat Minangkabau dengan atap melengkung seperti tanduk kerbau (gonjong). Rumah ini berbentuk persegi panjang, berdiri di atas tiang-tiang kayu, dan dihiasi ukiran indah yang sarat makna budaya Minangkabau.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Rumah Betang/Lamin/Panjang (Kalimantan)</h3>
+                    <div class="image-box">
+                        <img src="asset/betang.jpg?w=400" alt="betang">
+                    </div>
+                    <p>Betang/Lamin adalah rumah adat suku Dayak Kalimantan yang berbentuk rumah panjang. Dapat dihuni oleh 20-30 kepala keluarga dalam satu bangunan. Rumah panggung ini melambangkan kebersamaan dan gotong royong masyarakat Dayak.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Rumah Tongkonan (Sulawesi)</h3>
+                    <div class="image-box">
+                        <img src="asset/tongkonan.jpg?w=400" alt="tongkonan">
+                    </div>
+                    <p>Tongkonan adalah rumah adat Toraja dengan atap berbentuk perahu yang melengkung. Dihiasi ukiran geometris dan tanduk kerbau di bagian depan. Tongkonan menjadi pusat kehidupan sosial dan upacara adat masyarakat Toraja.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Rumah Baileo (Maluku)</h3>
+                    <div class="image-box">
+                        <img src="asset/baileo.jpg?w=400" alt="baileo">
+                    </div>
+                    <p>Baileo adalah rumah adat Maluku yang berfungsi sebagai balai pertemuan adat. Berbentuk rumah panggung tanpa dinding dengan atap berbentuk limas. Baileo digunakan untuk musyawarah adat dan upacara tradisional.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Rumah Honai (Papua)</h3>
+                    <div class="image-box">
+                        <img src="asset/honai.jpg?w=400" alt="honai">
+                    </div>
+                    <p>Honai adalah rumah adat Papua berbentuk bulat seperti jamur dengan atap jerami yang tebal. Tingginya sekitar 2,5 meter dengan pintu kecil untuk menjaga kehangatan di dataran tinggi Papua yang dingin. Terdiri dari dua lantai: lantai atas untuk tidur dan lantai bawah untuk berkumpul.</p>
+                </div>
+
+                <button class="back-btn btn-back" onclick="showSection('materiMenu')">⬅️ Kembali</button>
+            </div>
+
+            <!-- Pakaian Adat -->
+            <div id="pakaianMenu" class="content-section">
+                <h2 style="color: #667eea; margin-bottom: 15px;">👘 Pakaian Adat Nusantara</h2>
+                
+                <div class="content-box">
+                    <h3>Kebaya dan Beskap (Jawa)</h3>
+                    <div class="image-box">
+                        <img src="asset/beskap.jpg?w=400" alt="beskap">
+                    </div>
+                    <p>Kebaya adalah pakaian adat wanita Jawa berupa atasan berbahan tipis dengan kancing di bagian depan, dipadukan dengan kain jarik. Beskap adalah pakaian pria berupa jas dengan kancing di depan, dilengkapi blangkon dan keris. Melambangkan keanggunan dan kesopanan budaya Jawa.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Bundo Kanduang (Minangkabau, Sumatera Barat)</h3>
+                    <div class="image-box">
+                        <img src="asset/bundo.jpg" width="200" height="150" alt="bundo">
+                    </div>
+                    <p>Bundo Kanduang adalah pakaian adat wanita Minangkabau dengan baju kurung berwarna cerah, songket, dan tingkuluak (penutup kepala berbentuk tanduk kerbau). Pria mengenakan teluk belanga dengan deta (kopiah). Warna-warna cerah melambangkan kegembiraan dan kehormatan.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Pakaian Dayak (Kalimantan)</h3>
+                    <div class="image-box">
+                        <img src="asset/dayak.jpg" width="200" height="150" alt="dayak">
+                    </div>
+                    <p>Pakaian adat Dayak terbuat dari kulit kayu, kain tenun, dan dihiasi manik-manik, bulu burung enggang, serta taring babi hutan. Pria mengenakan cawat dan rompi, wanita mengenakan kain sarung dan baju tanpa lengan. Aksesoris seperti mandau dan beliong menunjukkan status sosial.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Baju Bodo (Sulawesi Selatan)</h3>
+                    <div class="image-box">
+                        <img src="asset/bodo.jpg?w=400" alt="bodo">
+                    </div>
+                    <p>Baju Bodo adalah pakaian adat wanita Bugis-Makassar berbentuk persegi dengan lengan pendek dan lebar. Warna pakaian menunjukkan tingkat sosial pemakainya. Dilengkapi dengan sarung sutra dan aksesoris emas. Sederhana namun elegan, mencerminkan kepribadian wanita Sulawesi Selatan.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Pakaian Adat Maluku</h3>
+                    <div class="image-box">
+                        <img src="asset/maluku.jpg?w=400" alt="maluku">
+                    </div>
+                    <p>Pakaian adat Maluku untuk wanita berupa kebaya dengan kain sarung dan selendang. Pria mengenakan kemeja putih dengan celana panjang hitam dan ikat pinggang merah. Dilengkapi dengan salele (topi khas) dan aksesoris dari kerang dan mutiara, mencerminkan kekayaan laut Maluku.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Koteka (Papua)</h3>
+                    <div class="image-box">
+                        <img src="asset/koteka.jpg?w=400" alt="koteka">
+                    </div>
+                    <p>Koteka adalah pakaian tradisional pria Papua terbuat dari kulit labu kering. Wanita mengenakan rok rumbai dari serat tumbuhan. Tubuh dihiasi dengan cat dari tanah dan arang, serta aksesoris dari bulu burung cenderawasih, tulang, dan gigi babi. Mencerminkan kesederhanaan hidup harmonis dengan alam.</p>
+                </div>
+
+                <button class="back-btn btn-back" onclick="showSection('materiMenu')">⬅️ Kembali</button>
+            </div>
+
+            <!-- Lagu Daerah -->
+            <div id="laguMenu" class="content-section">
+                <h2 style="color: #667eea; margin-bottom: 15px;">🎵 Lagu Daerah Nusantara</h2>
+                
+                <div class="content-box">
+                    <h3>Jawa - Gundhul Pacul</h3>
+                    <p><strong>Lirik:</strong> Gundhul gundhul pacul cul, gembelengan. Nyunggi nyunggi wakul kul, gembelengan...</p>
+                    <p><strong>Makna:</strong> Lagu tentang kepala botak yang membawa cangkul dan bakul, mengajarkan nilai kerja keras dan kejujuran.</p>
+                    <audio controls style="width: 100%; margin-top: 10px;">
+                        <source src="asset/gundulpacul.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <div class="content-box">
+                    <h3>Sumatera - Sing Sing So</h3>
+                    <p><strong>Lirik:</strong> Sing sing so, sing sing so, butet do ho inganan so...</p>
+                    <p><strong>Makna:</strong> Lagu dari Tapanuli yang menceritakan kerinduan dan keindahan alam Sumatera.</p>
+                    <audio controls style="width: 100%; margin-top: 10px;">
+                        <source src="asset/singsingso.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <div class="content-box">
+                    <h3>Kalimantan - Ampar-Ampar Pisang</h3>
+                    <p><strong>Lirik:</strong> Ampar-ampar pisang, pisangku balum masak. Masak sabigi dihurung bari-bari...</p>
+                    <p><strong>Makna:</strong> Lagu dari Kalimantan Selatan tentang pisang yang dijemur, mengajarkan kesabaran dan kerja keras.</p>
+                    <audio controls style="width: 100%; margin-top: 10px;">
+                        <source src="asset/amparampar.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <div class="content-box">
+                    <h3>Sulawesi - Anging Mammiri</h3>
+                    <p><strong>Lirik:</strong> Anging mammiri, anging mammiri, pa'rasangang langi...</p>
+                    <p><strong>Makna:</strong> Lagu dari Sulawesi Selatan tentang angin sepoi-sepoi yang menyejukkan, menggambarkan keindahan alam Makassar.</p>
+                    <audio controls style="width: 100%; margin-top: 10px;">
+                        <source src="asset/angingmamiri.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <div class="content-box">
+                    <h3>Maluku - Rasa Sayange</h3>
+                    <p><strong>Lirik:</strong> Rasa sayange, rasa sayang sayange. Eh lihat nona jauh, rasa sayang sayange...</p>
+                    <p><strong>Makna:</strong> Lagu yang mengungkapkan rasa sayang dan cinta kepada tanah air serta sesama.</p>
+                    <audio controls style="width: 100%; margin-top: 10px;">
+                        <source src="asset/rasasayange.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <div class="content-box">
+                    <h3>Papua - Apuse</h3>
+                    <p><strong>Lirik:</strong> Apuse kokon dao, yarabe soren doreri wa...</p>
+                    <p><strong>Makna:</strong> Lagu tentang burung cenderawasih yang cantik, melambangkan keindahan Papua dan kecintaan pada tanah kelahiran.</p>
+                    <audio controls style="width: 100%; margin-top: 10px;">
+                        <source src="asset/apuse.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+		<div class="content-box">
+                    <h3>Jawa Timur - Rek Ayo Rek</h3>
+                    <p><strong>Lirik:</strong> Rek ayo rek, mlaku mlaku neng Tunjungan...</p>
+                    <p><strong>Makna:</strong> Lagu tentang memanfaatkan waktu luang dengan jalan-jalan dan beraktifitas, jangan melamun saja di rumah.</p>
+                    <audio controls style="width: 100%; margin-top: 10px;">
+                        <source src="asset/rekayorek.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+		<div class="content-box">
+                    <h3>Jawa Timur(Trenggalek) - Kutho Trenggalek</h3>
+                    <p><strong>Lirik:</strong> Kutho Trenggalek, Kutho Trenggalek, kinubengan gunung-gunung, tepung gelang bumine...</p>
+                    <p><strong>Makna:</strong> Lagu tentang letak geografis Kota Trenggalek yang subur makmur .</p>
+                    <audio controls style="width: 100%; margin-top: 10px;">
+                        <source src="asset/trenggalek.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <button class="back-btn btn-back" onclick="showSection('materiMenu')">⬅️ Kembali</button>
+            </div>
+
+            <!-- Tarian Daerah -->
+            <div id="tarianMenu" class="content-section">
+                <h2 style="color: #667eea; margin-bottom: 15px;">💃 Tarian Daerah Nusantara</h2>
+                
+                <div class="content-box">
+                    <h3>Tari Serimpi (Jawa)</h3>
+                    <div class="image-box">
+                        <img src="asset/tariserimpi.jpg?w=400" alt="tariserimpi">
+                    </div>
+                    <p>Tari Serimpi berasal dari Keraton Yogyakarta yang ditarikan oleh empat penari wanita. Gerakan lemah gemulai dengan kostum batik dan aksesoris emas. Melambangkan keanggunan, kesopanan, dan keharmonisan.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Tari Piring (Sumatera)</h3>
+                    <div class="image-box">
+                        <img src="asset/taripiring.jpg?w=400" alt="taripiring">
+                    </div>
+                    <p>Tari Piring dari Minangkabau menampilkan penari memegang piring di kedua tangan sambil bergerak lincah. Awalnya sebagai tarian persembahan syukur atas hasil panen. Gerakan dinamis mencerminkan keceriaan masyarakat Minang.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Tari Gong (Kalimantan)</h3>
+                    <div class="image-box">
+                        <img src="asset/tarigong.jpg?w=400" alt="tarigong">
+                    </div>
+                    <p>Tari Gong adalah tarian adat Dayak untuk menyambut tamu kehormatan. Penari mengenakan pakaian tradisional dengan aksesoris bulu burung enggang. Diiringi musik gong dan mengekspresikan kegembiraan dan penghormatan.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Tari Ma'gellu (Sulawesi)</h3>
+                    <div class="image-box">
+                        <img src="asset/tarimagelu.jpg?w=400" alt="tarimagelu">
+                    </div>
+                    <p>Tari Ma'gellu dari Toraja ditampilkan saat upacara adat dengan gerakan tangan yang dinamis. Penari membentuk lingkaran sambil bernyanyi. Melambangkan kegembiraan dan kebersamaan masyarakat Toraja.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Tari Cakalele (Maluku)</h3>
+                    <div class="image-box">
+                        <img src="asset/taricakalele.jpg?w=400" alt="taricakalele">
+                    </div>
+                    <p>Tari Cakalele adalah tarian perang dari Maluku yang menggambarkan keberanian prajurit. Penari pria membawa parang dan perisai dengan gerakan tegas dan energik. Melambangkan semangat juang dan patriotisme.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Tari Yospan (Papua)</h3>
+                    <div class="image-box">
+                        <img src="asset/tariyospan.jpg?w=400" alt="tariyospan">
+                    </div>
+                    <p>Tari Yospan adalah tarian pergaulan masyarakat Papua yang menggabungkan gerakan tradisional dengan modern. Ditarikan secara berpasangan dengan gerakan sederhana namun gembira. Mencerminkan keramahan masyarakat Papua.</p>
+                </div>
+
+                <button class="back-btn btn-back" onclick="showSection('materiMenu')">⬅️ Kembali</button>
+            </div>
+
+            <!-- Alat Musik -->
+            <div id="musikMenu" class="content-section">
+                <h2 style="color: #667eea; margin-bottom: 15px;">🎸 Alat Musik Daerah</h2>
+                
+                <div class="content-box">
+                    <h3>Gamelan (Jawa)</h3>
+                    <div class="image-box">
+                        <img src="asset/gamelan.jpg?w=400" alt="gamelan">
+                    </div>
+                    <p>Gamelan adalah ensembel musik tradisional Jawa yang terdiri dari berbagai instrumen seperti gong, kenong, saron, bonang, kendang, dan gender. Menghasilkan musik yang harmonis dan sakral, sering mengiringi wayang dan tarian.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Saluang (Sumatera)</h3>
+                    <div class="image-box">
+                        <img src="asset/saluang.jpg?w=400" alt="saluang">
+                    </div>
+                    <p>Saluang adalah alat musik tiup dari bambu khas Minangkabau. Berbentuk seruling dengan empat lubang nada. Menghasilkan suara merdu yang sering mengiringi lagu-lagu daerah Sumatera Barat.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Sape (Kalimantan)</h3>
+                    <div class="image-box">
+                        <img src="asset/sape.jpg?w=400" alt="sape">
+                    </div>
+                    <p>Sape adalah alat musik petik tradisional Dayak berbentuk seperti gitar dengan 3-4 senar. Terbuat dari kayu pilihan dengan ukiran khas. Digunakan dalam upacara adat dan menghasilkan nada yang khas dan menenangkan.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Kolintang (Sulawesi)</h3>
+                    <div class="image-box">
+                        <img src="asset/kolintang.jpg?w=400" alt="kolintang">
+                    </div>
+                    <p>Kolintang adalah alat musik pukul dari Minahasa, Sulawesi Utara. Terdiri dari bilah-bilah kayu yang disusun berurutan sesuai nada. Dimainkan dengan pemukul kayu dan menghasilkan suara yang merdu dan ceria.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Tifa </h3>
+                    <div class="image-box">
+                        <img src="asset/tifa.jpg?w=400" alt="tifa">
+                    </div>
+                    <p>Tifa adalah alat musik pukul berbentuk tabung dari Maluku dan Papua. Terbuat dari kayu dengan membran kulit hewan di salah satu ujungnya. Menghasilkan bunyi yang khas untuk mengiringi tarian dan upacara adat.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Pikon (Papua)</h3>
+                    <div class="image-box">
+                        <img src="asset/pikon.jpg?w=400" alt="pikon">
+                    </div>
+                    <p>Pikon adalah alat musik tiup tradisional Papua terbuat dari bambu. Berbentuk seperti terompet dengan lubang tiup di ujung. Digunakan untuk memanggil warga saat upacara adat atau sebagai alat komunikasi.</p>
+                </div>
+
+                <button class="back-btn btn-back" onclick="showSection('materiMenu')">⬅️ Kembali</button>
+            </div>
+
+            <!-- Kebiasaan Adat -->
+            <div id="kearifanMenu" class="content-section">
+                <h2 style="color: #667eea; margin-bottom: 15px;">🌾 Kebiasaan Adat</h2>
+                
+                <div class="content-box">
+                    <h3>Jawa</h3>
+                    <p><strong>Kebiasaan Adat:</strong></p>
+                    <ul>
+                        <li>Gotong royong dalam berbagai kegiatan</li>
+                        <li>Sungkem kepada orang tua saat hari raya</li>
+                        <li>Tepo seliro (tenggang rasa) dalam bergaul</li>
+                        <li>Nyekar atau ziarah ke makam leluhur</li>
+                    </ul>
+                    <p><strong>Makanan Khas:</strong> Gudeg, Rawon, Soto Lamongan, Pecel, Tumpeng, Klepon, Onde-onde, Getuk. Masyarakat  Kampung Adat Cireundeu, Kota Cimahi memiliki tradisi untuk memakan makanan pokok dari singkong. Masyarakatnya memakan  rasi (beras singkong) sebagai makanan pokok.Di Jawa Barat kue tersebut bernama klepon. Di Sumatra  Barat disebut onde-onde. Ini adalah salah satu contoh  keragaman budaya yang patut kita syukuri. Masyarakat  Jawa  pada  umumnya  memiliki  produk  khas  masyarakat setempat yang digunakan sebagai hasil pertanian. Misalnya, nasi tumpeng dengan  berbagai lauk pauk yang  menjadi  simbol  ungkapan  rasa  syukur atas   kebahagiaan.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Sumatera</h3>
+                    <p><strong>Kebiasaan Adat:</strong></p>
+                    <ul>
+                        <li>Sistem matrilineal (garis keturunan ibu)</li>
+                        <li>Musyawarah dalam mengambil keputusan</li>
+                        <li>Manjapuik marapulai (menjemput pengantin pria)</li>
+                        <li>Batagak penghulu (pengangkatan pemimpin)</li>
+                    </ul>
+                    <p><strong>Makanan Khas:</strong> Rendang, Gulai, Sate Padang, Pempek, Bika Ambon, Kue Lapis Legit.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Kalimantan</h3>
+                    <p><strong>Kebiasaan Adat:</strong></p>
+                    <ul>
+                        <li>Hidup berkelompok dalam rumah panjang</li>
+                        <li>Upacara Tiwah untuk menghormati arwah leluhur</li>
+                        <li>Sistem perladangan berpindah yang berkelanjutan</li>
+                        <li>Menyimpan tengkorak nenek moyang sebagai penghormatan</li>
+                    </ul>
+                    <p><strong>Makanan Khas:</strong> Juhu Singkah, Soto Banjar, Amplang, Kue Cucur, Ikan Patin Masak Tempoyak.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Sulawesi</h3>
+                    <p><strong>Kebiasaan Adat:</strong></p>
+                    <ul>
+                        <li>Upacara Rambu Solo (upacara kematian megah)</li>
+                        <li>Siri' (harga diri) yang dijunjung tinggi</li>
+                        <li>Mapalus (gotong royong bergiliran)</li>
+                        <li>Menghormati ma'nene (upacara membersihkan jenazah)</li>
+                    </ul>
+                    <p><strong>Makanan Khas:</strong> Coto Makassar, Konro, Pallu Basa, Kapurung, Bagea, Es Pisang Ijo.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Maluku</h3>
+                    <p><strong>Kebiasaan Adat:</strong></p>
+                    <ul>
+                        <li>Tradisi Pela dan Gandong (persaudaraan antar negeri)</li>
+                        <li>Sistem Sasi untuk menjaga kelestarian alam</li>
+                        <li>Upacara adat Panas Pela</li>
+                        <li>Hidup rukun antar agama dengan toleransi tinggi</li>
+                    </ul>
+                    <p><strong>Makanan Khas:</strong> Papeda, Ikan Kuah Pala Banda, Kohu-kohu, Sagu Lempeng, Gohu Ikan.</p>
+                </div>
+
+                <div class="content-box">
+                    <h3>Papua</h3>
+                    <p><strong>Kebiasaan Adat:</strong></p>
+                    <ul>
+                        <li>Sistem Noken untuk membawa barang</li>
+                        <li>Upacara Bakar Batu untuk acara besar</li>
+                        <li>Hormat pada tetua dan pemimpin suku</li>
+                        <li>Hidup harmonis dengan alam dan hutan</li>
+                    </ul>
+                    <p><strong>Makanan Khas:</strong> Papeda Papua, Udang Karang, Ikan Bakar Manokwari, Sagu Bakar, Aunu Senebre.</p>
+                </div>
+
+                <button class="back-btn btn-back" onclick="showSection('materiMenu')">⬅️ Kembali</button>
+            </div>
+
+            <!-- Video Pembelajaran -->
+            <div id="videoMenu" class="content-section">
+                <h2 style="color: #667eea; margin-bottom: 15px;">🎥 Video Pembelajaran</h2>
+                
+                <div class="video-container">
+		<video controls>
+    		<source src="asset/ragambudaya.mp4" type="video/mp4" />
+    		Browsermu tidak mendukung tag ini, upgrade donk!
+  		</video>
+                </div>   
+                
+                <div class="content-box">
+                    <h3>Keragaman Budaya Indonesia</h3>
+                    <p>Video pembelajaran tentang keanekaragaman budaya Indonesia meliputi rumah adat, pakaian adat, tarian, lagu daerah, dan kearifan lokal dari berbagai daerah di Indonesia.</p>
+                </div>
+
+                <div class="video-container">
+		<video controls>
+    		<source src="asset/cucinegerisoya.mp4" type="video/mp4" />
+    		Browsermu tidak mendukung tag ini, upgrade donk!
+  		</video>
+                </div> 
+                
+                <div class="content-box">
+                    <h3>Tradisi dan Upacara Adat</h3>
+                    <p>Video mengenai berbagai tradisi Cuci Negeri Soya.</p>
+                </div>
+
+ 		<div class="video-container">
+		<video controls>
+    		<source src="asset/nyadran.mp4" type="video/mp4" />
+    		Browsermu tidak mendukung tag ini, upgrade donk!
+  		</video>
+                </div> 
+                
+                <div class="content-box">
+                    <h3>Kearifan Lokal Trenggalek</h3>
+                    <p>Video pembelajaran tentang tradisi nyadran di dam Bagong.</p>
+                </div>
+	     
+		<div class="video-container">
+		<video controls>
+    		<source src="asset/videosembonyo.mp4" type="video/mp4" />
+    		Browsermu tidak mendukung tag ini, upgrade donk!
+  		</video>
+
+                </div>
+                <div class="content-box">
+                    <h3>Kearifan Lokal Trenggalek</h3>
+                    <p>Video pembelajaran tentang kegiatan tradisi larung sembonyo di pantai Prigi.</p>
+                </div>
+
+                <button class="back-btn btn-back" onclick="showSection('mainMenu')">⬅️ Kembali</button>
+            </div>
+
+            <!-- Game Edukatif -->
+            <div id="gameMenu" class="content-section">
+                <h2 style="color: #667eea; margin-bottom: 15px;">🎮 Pilih Game</h2>
+                <div class="menu-grid">
+                    <button class="menu-btn btn-game" onclick="startMatchGame()">🎯 Menjodohkan</button>
+                    <button class="menu-btn btn-game" onclick="startWordGame()">🔤 Tebak Kata</button>
+                </div>
+                <button class="back-btn btn-back" onclick="showSection('mainMenu')">⬅️ Kembali</button>
+            </div>
+
+            <!-- Game Menjodohkan -->
+            <div id="matchGame" class="content-section">
+                <h2 style="color: #667eea; margin-bottom: 15px;">🎯 Game Menjodohkan</h2>
+                <div class="game-area" id="matchGameArea"></div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <p style="font-size: 18px; font-weight: bold; color: #667eea;">Skor: <span id="matchScore">0</span></p>
+                </div>
+                <button class="back-btn btn-back" onclick="showSection('gameMenu')">⬅️ Kembali</button>
+            </div>
+
+            <!-- Game Tebak Kata -->
+            <div id="wordGame" class="content-section">
+                <h2 style="color: #667eea; margin-bottom: 15px;">🔤 Game Tebak Kata</h2>
+                <div class="game-area">
+                    <div class="clue-text" id="wordClue"></div>
+                    <div id="wordGrid"></div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <p style="font-size: 18px; font-weight: bold; color: #667eea;">Skor: <span id="wordScore">0</span></p>
+                    </div>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button class="back-btn btn-game" onclick="resetWordGame()" style="margin-top: 10px;">🔄 Main Lagi</button>
+                    </div>
+                </div>
+                <button class="back-btn btn-back" onclick="showSection('gameMenu')">⬅️ Kembali</button>
+            </div>
+
+            <!-- Quiz Intro -->
+            <div id="quizIntro" class="content-section">
+                <h2 style="color: #667eea; margin-bottom: 15px;">✍️ Latihan Soal</h2>
+                <div class="quiz-form">
+                    <h3 style="margin-bottom: 15px;">Masukkan Data Diri</h3>
+                    <input type="text" id="studentName" placeholder="Nama Lengkap" required>
+                    <input type="number" id="studentNumber" placeholder="Nomor Absen" required>
+                    <button class="back-btn btn-materi" onclick="startQuiz()" style="margin-top: 10px;">Mulai Mengerjakan</button>
+                </div>
+                <button class="back-btn btn-back" onclick="showSection('mainMenu')">⬅️ Kembali</button>
+            </div>
+
+            <!-- Quiz Section -->
+            <div id="quizSection" class="content-section">
+                <h2 style="color: #667eea; margin-bottom: 15px;">✍️ Soal Latihan</h2>
+                <div id="quizContainer"></div>
+                <button class="back-btn btn-materi" onclick="submitQuiz()">Selesai & Lihat Nilai</button>
+                <button class="back-btn btn-back" onclick="showSection('quizIntro')">⬅️ Kembali</button>
+            </div>
+
+            <!-- Quiz Result -->
+            <div id="quizResult" class="content-section">
+                <div class="score-board">
+                    <h3>Hasil Latihan Soal</h3>
+                    <p id="resultName"></p>
+                    <h2 id="resultScore"></h2>
+                    <p id="resultGrade"></p>
+                </div>
+                <div class="share-buttons">
+                    <button class="share-btn btn-print" onclick="printResult()">🖨️ Cetak</button>
+                    <button class="share-btn btn-whatsapp" onclick="shareWhatsApp()">📱 Bagikan</button>
+                </div>
+                <button class="back-btn btn-materi" onclick="resetQuiz()">🔄 Kerjakan Lagi</button>
+                <button class="back-btn btn-back" onclick="showSection('mainMenu')">⬅️ Menu Utama</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSection = 'mainMenu';
+        let history = [];
+
+        function showSection(sectionId) {
+            history.push(currentSection);
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            currentSection = sectionId;
+            window.scrollTo(0, 0);
+        }
+
+        function goBack() {
+            if (history.length > 0) {
+                const previousSection = history.pop();
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(previousSection).classList.add('active');
+                currentSection = previousSection;
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // Handle Android back button
+        window.addEventListener('popstate', function(event) {
+            event.preventDefault();
+            goBack();
+        });
+
+        // Push initial state
+        window.history.pushState({}, '');
+
+        function confirmExit() {
+            if (confirm('Apakah Anda yakin ingin keluar dari aplikasi?')) {
+                window.close();
+            }
+        }
+
+        // Game Menjodohkan - Drag and Drop
+        const matchQuestions = [
+            {q: "Rumah adat Jawa Tengah dengan atap limas", a: "Joglo"},
+            {q: "Alat musik petik suku Dayak Kalimantan", a: "Sape"},
+            {q: "Tarian perang dari Maluku dengan parang", a: "Cakalele"},
+            {q: "Pakaian adat wanita Bugis Makassar", a: "Baju Bodo"},
+            {q: "Lagu daerah Maluku tentang rasa sayang", a: "Rasa Sayange"},
+            {q: "Rumah adat Papua berbentuk bulat jamur", a: "Honai"},
+            {q: "Alat musik pukul Minahasa dari kayu", a: "Kolintang"},
+            {q: "Tradisi menanam padi bersama Sumsel", a: "Bebie"},
+            {q: "Makanan khas Minang berbumbu kaya", a: "Rendang"},
+            {q: "Tarian dari Minangkabau dengan piring", a: "Tari Piring"},
+            {q: "Rumah adat Minangkabau atap gonjong", a: "Rumah Gadang"},
+            {q: "Rumah panjang suku Dayak Kalimantan", a: "Lamin"},
+            {q: "Rumah adat Toraja berbentuk perahu", a: "Tongkonan"},
+            {q: "Balai pertemuan adat Maluku", a: "Baileo"},
+            {q: "Ensembel musik tradisional Jawa", a: "Gamelan"},
+            {q: "Alat musik tiup bambu Minangkabau", a: "Saluang"},
+            {q: "Alat musik pukul dari Maluku Papua", a: "Tifa"},
+            {q: "Tradisi larangan ambil hasil alam", a: "Sasi"},
+            {q: "Upacara hamil 7 bulan di Jawa", a: "Mitoni"},
+            {q: "Tradisi cuci kampung dari Ambon", a: "Cuci Negeri"},
+            {q: "Tarian empat penari wanita Yogya", a: "Serimpi"},
+            {q: "Tarian gembira dari suku Dayak", a: "Tari Gong"},
+            {q: "Tarian pergaulan masyarakat Papua", a: "Yospan"},
+            {q: "Pakaian pria Papua dari kulit labu", a: "Koteka"},
+            {q: "Tas tradisional Papua dari kulit kayu", a: "Noken"},
+            {q: "Lagu daerah Papua tentang burung", a: "Apuse"},
+            {q: "Lagu Kalimantan tentang pisang", a: "Ampar-Ampar Pisang"},
+            {q: "Persaudaraan antar negeri Maluku", a: "Pela Gandong"},
+            {q: "Upacara kematian megah Toraja", a: "Rambu Solo"},
+            {q: "Tradisi selamatan sebelum Ramadan", a: "Megengan"}
+        ];
+
+        let matchScore = 0;
+        let currentMatch = [];
+        let selectedLeft = null;
+        let selectedRight = null;
+        let matchedPairs = [];
+
+        function startMatchGame() {
+            matchScore = 0;
+            matchedPairs = [];
+            selectedLeft = null;
+            selectedRight = null;
+            document.getElementById('matchScore').textContent = matchScore;
+            currentMatch = shuffleArray([...matchQuestions]).slice(0, 8);
+            renderMatchGame();
+            showSection('matchGame');
+        }
+
+        function renderMatchGame() {
+            const container = document.getElementById('matchGameArea');
+            const leftItems = currentMatch.map((item, idx) => ({text: item.q, index: idx, type: 'left'}));
+            const rightItems = shuffleArray(currentMatch.map((item, idx) => ({text: item.a, index: idx, type: 'right'})));
+            
+            container.innerHTML = `
+                <p style="text-align: center; margin-bottom: 15px; font-weight: bold;">Cocokkan pertanyaan dengan jawaban yang tepat!</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div id="leftColumn"></div>
+                    <div id="rightColumn"></div>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <button class="back-btn btn-game" onclick="resetMatchGame()" style="margin-top: 10px;">🔄 Main Lagi</button>
+                </div>
+            `;
+            
+            const leftCol = document.getElementById('leftColumn');
+            const rightCol = document.getElementById('rightColumn');
+            
+            leftItems.forEach(item => {
+                leftCol.innerHTML += `
+                    <div class="match-card match-left" data-index="${item.index}" onclick="selectCard(this, 'left', ${item.index})">
+                        ${item.text}
+                    </div>
+                `;
+            });
+            
+            rightItems.forEach(item => {
+                rightCol.innerHTML += `
+                    <div class="match-card match-right" data-index="${item.index}" onclick="selectCard(this, 'right', ${item.index})">
+                        ${item.text}
+                    </div>
+                `;
+            });
+        }
+
+        function selectCard(element, side, index) {
+            if (matchedPairs.includes(index)) return;
+            
+            if (side === 'left') {
+                if (selectedLeft) {
+                    selectedLeft.classList.remove('selected');
+                }
+                selectedLeft = element;
+                element.classList.add('selected');
+            } else {
+                if (selectedRight) {
+                    selectedRight.classList.remove('selected');
+                }
+                selectedRight = element;
+                element.classList.add('selected');
+            }
+            
+            if (selectedLeft && selectedRight) {
+                checkMatchPair();
+            }
+        }
+
+        function checkMatchPair() {
+            const leftIndex = parseInt(selectedLeft.dataset.index);
+            const rightIndex = parseInt(selectedRight.dataset.index);
+            
+            setTimeout(() => {
+                if (leftIndex === rightIndex) {
+                    selectedLeft.classList.add('matched');
+                    selectedRight.classList.add('matched');
+                    selectedLeft.classList.remove('selected');
+                    selectedRight.classList.remove('selected');
+                    matchedPairs.push(leftIndex);
+                    matchScore += 100;
+                    document.getElementById('matchScore').textContent = matchScore;
+                    
+                    if (matchedPairs.length === currentMatch.length) {
+                        setTimeout(() => {
+                            alert('🎉 Selamat! Anda berhasil mencocokkan semua pasangan!\nSkor: ' + matchScore);
+                        }, 500);
+                    }
+                } else {
+                    selectedLeft.classList.remove('selected');
+                    selectedRight.classList.remove('selected');
+                }
+                selectedLeft = null;
+                selectedRight = null;
+            }, 300);
+        }
+
+        function resetMatchGame() {
+            startMatchGame();
+        }
+
+        // Game Tebak Kata
+        const wordQuestions = [
+            {clue: "Rumah adat Minangkabau dengan atap seperti tanduk kerbau (6 huruf)", answer: "GADANG"},
+            {clue: "Alat musik tradisional Jawa berbentuk ensembel (7 huruf)", answer: "GAMELAN"},
+            {clue: "Tradisi larangan mengambil hasil alam dari Maluku (4 huruf)", answer: "SASI"},
+            {clue: "Pakaian tradisional pria Papua dari kulit labu (6 huruf)", answer: "KOTEKA"},
+            {clue: "Tarian Jawa dengan empat penari wanita (7 huruf)", answer: "SERIMPI"},
+            {clue: "Rumah panjang suku Dayak Kalimantan (5 huruf)", answer: "LAMIN"},
+            {clue: "Upacara hamil tujuh bulan di Jawa (6 huruf)", answer: "MITONI"},
+            {clue: "Makanan khas Minang berbumbu kaya rasa (7 huruf)", answer: "RENDANG"},
+            {clue: "Burung cantik Papua dalam lagu daerah (5 huruf)", answer: "APUSE"},
+            {clue: "Alat musik tiup bambu Minangkabau (7 huruf)", answer: "SALUANG"},
+            {clue: "Rumah adat Jawa Tengah dengan atap limas (5 huruf)", answer: "JOGLO"},
+            {clue: "Rumah adat Toraja berbentuk perahu (9 huruf)", answer: "TONGKONAN"},
+            {clue: "Rumah adat Papua berbentuk bulat (5 huruf)", answer: "HONAI"},
+            {clue: "Tarian perang dari Maluku (8 huruf)", answer: "CAKALELE"},
+            {clue: "Alat musik pukul Minahasa dari kayu (9 huruf)", answer: "KOLINTANG"},
+            {clue: "Alat musik petik suku Dayak (4 huruf)", answer: "SAPE"},
+            {clue: "Tradisi menanam padi bersama Sumsel (5 huruf)", answer: "BEBIE"},
+            {clue: "Balai pertemuan adat Maluku (6 huruf)", answer: "BAILEO"},
+            {clue: "Tas tradisional Papua dari kulit kayu (5 huruf)", answer: "NOKEN"},
+            {clue: "Pakaian adat wanita Bugis Makassar (4 huruf)", answer: "BODO"},
+            {clue: "Tarian gembira dari suku Dayak (4 huruf)", answer: "GONG"},
+            {clue: "Tarian pergaulan masyarakat Papua (6 huruf)", answer: "YOSPAN"},
+            {clue: "Alat musik pukul dari Maluku dan Papua (4 huruf)", answer: "TIFA"},
+            {clue: "Tradisi cuci kampung dari Ambon (6 huruf)", answer: "NEGERI"},
+            {clue: "Upacara kematian megah Toraja (5 huruf)", answer: "RAMBU"},
+            {clue: "Tradisi selamatan sebelum Ramadan (8 huruf)", answer: "MEGENGAN"},
+            {clue: "Persaudaraan antar negeri Maluku (4 huruf)", answer: "PELA"},
+            {clue: "Tarian dengan piring di tangan (6 huruf)", answer: "PIRING"},
+            {clue: "Lagu daerah Maluku rasa sayang (7 huruf)", answer: "SAYANGE"},
+            {clue: "Tradisi selamatan dengan ketupat (7 huruf)", answer: "KUPATAN"}
+        ];
+
+        let wordScore = 0;
+        let currentWord = {};
+        let selectedLetters = [];
+        let selectedBoxes = [];
+
+        function startWordGame() {
+            wordScore = 0;
+            document.getElementById('wordScore').textContent = wordScore;
+            loadNewWord();
+            showSection('wordGame');
+        }
+
+        function loadNewWord() {
+            currentWord = wordQuestions[Math.floor(Math.random() * wordQuestions.length)];
+            selectedLetters = [];
+            selectedBoxes = [];
+            document.getElementById('wordClue').textContent = currentWord.clue;
+            renderWordGrid();
+        }
+
+        function renderWordGrid() {
+            const answer = currentWord.answer;
+            const answerLength = answer.length;
+            
+            // Buat huruf dummy yang jumlahnya setengah dari panjang jawaban
+            const extraCount = Math.ceil(answerLength / 2);
+            const allLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            const usedLetters = answer.split('');
+            const unusedLetters = allLetters.filter(l => !usedLetters.includes(l));
+            const extraLetters = shuffleArray(unusedLetters).slice(0, extraCount);
+            
+            // Gabungkan dan acak
+            const gridLetters = shuffleArray([...usedLetters, ...extraLetters]);
+            
+            const grid = document.getElementById('wordGrid');
+            grid.innerHTML = `
+                <div style="margin-bottom: 20px;">
+                    <p style="text-align: center; font-weight: bold; color: #667eea; margin-bottom: 10px;">Jawaban Anda:</p>
+                    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 5px; min-height: 50px; background: white; padding: 10px; border-radius: 8px;">
+                        ${Array(answerLength).fill(0).map((_, i) => 
+                            `<div class="answer-box" id="ans-${i}">_</div>`
+                        ).join('')}
+                    </div>
+                </div>
+                <p style="text-align: center; font-weight: bold; color: #667eea; margin-bottom: 10px;">Pilih Huruf:</p>
+                ${gridLetters.map((letter, idx) => 
+                    `<div class="word-box" id="box-${idx}" onclick="selectLetter(${idx}, '${letter}')">${letter}</div>`
+                ).join('')}
+            `;
+        }
+
+        function selectLetter(index, letter) {
+            const box = document.getElementById(`box-${index}`);
+            if (box.classList.contains('used')) return;
+            
+            // Tambahkan huruf ke jawaban
+            if (selectedLetters.length < currentWord.answer.length) {
+                selectedLetters.push(letter);
+                selectedBoxes.push(index);
+                box.classList.add('used');
+                
+                // Tampilkan di kotak jawaban
+                const ansBox = document.getElementById(`ans-${selectedLetters.length - 1}`);
+                ansBox.textContent = letter;
+                ansBox.classList.add('filled');
+                
+                // Cek jawaban jika sudah lengkap
+                if (selectedLetters.length === currentWord.answer.length) {
+                    setTimeout(() => checkAnswer(), 300);
+                }
+            }
+        }
+
+        function checkAnswer() {
+            const userAnswer = selectedLetters.join('');
+            
+            if (userAnswer === currentWord.answer) {
+                // Benar
+                document.querySelectorAll('.answer-box').forEach(box => {
+                    box.style.background = '#43e97b';
+                    box.style.color = 'white';
+                });
+                wordScore += 100;
+                document.getElementById('wordScore').textContent = wordScore;
+                
+                setTimeout(() => {
+                    if (confirm('🎉 Benar! Lanjut ke soal berikutnya?')) {
+                        loadNewWord();
+                    }
+                }, 500);
+            } else {
+                // Salah - reset
+                document.querySelectorAll('.answer-box').forEach(box => {
+                    box.style.background = '#f5576c';
+                    box.style.color = 'white';
+                });
+                
+                setTimeout(() => {
+                    selectedBoxes.forEach(idx => {
+                        document.getElementById(`box-${idx}`).classList.remove('used');
+                    });
+                    selectedLetters = [];
+                    selectedBoxes = [];
+                    document.querySelectorAll('.answer-box').forEach((box, idx) => {
+                        box.textContent = '_';
+                        box.style.background = '#f8f9fa';
+                        box.style.color = '#333';
+                        box.classList.remove('filled');
+                    });
+                }, 1000);
+            }
+        }
+
+        function resetWordGame() {
+            loadNewWord();
+        }
+
+        // Quiz
+        const quizQuestions = [
+            {
+                stimulus: "Pak Budi mengunjungi sebuah desa di Jawa Tengah. Ia melihat rumah dengan atap berbentuk limas tinggi yang ditopang oleh empat tiang besar. Rumah tersebut memiliki ruang tengah yang luas tanpa sekat.",
+                question: "Berdasarkan deskripsi tersebut, rumah adat apakah yang dilihat Pak Budi?",
+                options: [
+                    "Rumah Joglo yang merupakan ciri khas arsitektur Jawa Tengah dengan filosofi keseimbangan",
+                    "Rumah Gadang yang merupakan rumah adat Minangkabau dengan atap berbentuk tanduk kerbau",
+                    "Rumah Lamin yang merupakan rumah panjang suku Dayak untuk hidup berkelompok bersama",
+                    "Rumah Tongkonan yang merupakan rumah adat Toraja dengan atap berbentuk seperti perahu"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Di sebuah upacara adat Toraja, masyarakat melakukan ritual yang sangat megah untuk menghormati leluhur yang telah meninggal. Upacara ini memakan waktu berhari-hari dengan menyembelih banyak hewan.",
+                question: "Mengapa masyarakat Toraja melakukan upacara kematian yang begitu megah?",
+                options: [
+                    "Upacara Rambu Solo dilakukan sebagai wujud penghormatan tertinggi kepada arwah leluhur yang dianggap penting",
+                    "Untuk menunjukkan kekayaan keluarga yang ditinggalkan kepada masyarakat sekitar kampung mereka",
+                    "Sebagai ritual wajib yang harus dilakukan setiap tahun oleh seluruh warga Toraja tanpa terkecuali",
+                    "Karena tradisi ini merupakan warisan dari bangsa asing yang pernah menjajah wilayah tersebut"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Sinta belajar tentang tradisi Sasi dari Maluku. Ia membaca bahwa masyarakat tidak boleh mengambil hasil laut atau hutan pada waktu tertentu yang telah ditentukan oleh pemangku adat.",
+                question: "Apa tujuan utama dari tradisi Sasi yang diterapkan masyarakat Maluku?",
+                options: [
+                    "Menjaga kelestarian sumber daya alam agar tidak habis dan dapat berkembang dengan baik untuk masa depan",
+                    "Membatasi akses masyarakat miskin untuk mengambil hasil alam demi kepentingan orang-orang kaya",
+                    "Mencegah terjadinya konflik antar warga dalam memperebutkan wilayah tangkapan ikan di laut lepas",
+                    "Mengikuti aturan pemerintah modern yang mengatur tentang larangan penangkapan ikan secara berlebihan"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Dalam pertunjukan gamelan Jawa, terdengar perpaduan bunyi dari berbagai alat musik seperti gong, kenong, saron, dan bonang yang dimainkan secara bersamaan menghasilkan harmoni yang indah.",
+                question: "Apa yang dapat kita pelajari dari cara memainkan gamelan yang saling melengkapi?",
+                options: [
+                    "Pentingnya kerjasama dan keharmonisan dalam kehidupan bermasyarakat untuk mencapai tujuan bersama yang baik",
+                    "Setiap orang harus bisa memainkan semua alat musik agar bisa tampil sendiri tanpa bantuan orang lain",
+                    "Alat musik yang paling keras suaranya adalah yang paling penting dalam sebuah pertunjukan musik gamelan",
+                    "Musik tradisional lebih sulit dipelajari dibandingkan musik modern sehingga kurang diminati anak muda"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Desa Soya di Ambon memiliki tradisi Cuci Negeri yang dilakukan secara gotong royong. Seluruh warga membersihkan lingkungan, rumah ibadah, dan fasilitas umum sebagai persiapan menyambut tahun baru.",
+                question: "Nilai luhur apa yang terkandung dalam tradisi Cuci Negeri Soya?",
+                options: [
+                    "Nilai kebersamaan, kebersihan, dan rasa syukur yang ditunjukkan melalui gotong royong membersihkan kampung",
+                    "Nilai individualisme karena setiap keluarga harus membersihkan rumahnya sendiri tanpa bantuan tetangga sekitar",
+                    "Nilai materialisme dengan membeli peralatan kebersihan yang paling mahal untuk menunjukkan kekayaan mereka",
+                    "Nilai persaingan antar warga untuk menentukan siapa yang paling rajin dalam membersihkan lingkungan rumahnya"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Rani menonton video tentang Tari Piring dari Minangkabau. Penari membawa piring di kedua tangan sambil bergerak lincah tanpa menjatuhkan piringnya.",
+                question: "Keterampilan apa yang dibutuhkan untuk menari Tari Piring dengan baik?",
+                options: [
+                    "Keseimbangan tubuh yang baik, koordinasi tangan yang terlatih, dan konsentrasi tinggi agar piring tidak jatuh",
+                    "Kekuatan fisik yang besar untuk mengangkat piring yang berat selama menari dalam waktu yang lama",
+                    "Kemampuan menyanyi dengan suara keras agar bisa mengiringi musik gamelan yang dimainkan saat menari",
+                    "Pengetahuan tentang sejarah piring yang digunakan dalam tarian agar bisa menjelaskan kepada penonton"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Pak Agus mengajarkan murid-muridnya tentang rumah Honai dari Papua. Rumah ini berbentuk bulat dengan atap jerami tebal dan pintu yang kecil.",
+                question: "Mengapa rumah Honai dibangun dengan pintu kecil dan atap jerami yang tebal?",
+                options: [
+                    "Untuk menjaga kehangatan ruangan karena Papua dataran tinggi memiliki suhu udara yang dingin pada malam hari",
+                    "Karena masyarakat Papua tidak memiliki teknologi untuk membuat pintu besar seperti rumah-rumah modern",
+                    "Agar binatang buas tidak bisa masuk ke dalam rumah saat malam hari ketika penghuninya sedang tidur",
+                    "Untuk menghemat bahan bangunan karena kayu dan jerami sangat sulit ditemukan di wilayah Papua"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Di Trenggalek terdapat tradisi Grebeg Selo dimana masyarakat membawa hasil panen ke masjid untuk diberkahi, kemudian dibagikan kepada seluruh warga desa.",
+                question: "Apa makna dari tradisi membagikan hasil panen kepada warga dalam Grebeg Selo?",
+                options: [
+                    "Berbagi kebahagiaan dan rezeki dengan sesama sebagai wujud rasa syukur atas hasil panen yang melimpah",
+                    "Menunjukkan bahwa petani yang panennya paling banyak adalah orang yang paling kaya di desa tersebut",
+                    "Memaksa semua warga untuk memberikan hasil panen mereka kepada pemimpin desa setiap tahun tanpa kecuali",
+                    "Merupakan kewajiban yang harus dilakukan agar tidak mendapat hukuman dari pemerintah setempat"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Budi mempelajari bahwa pakaian adat Baju Bodo dari Sulawesi memiliki warna yang berbeda-beda. Warna tersebut menunjukkan tingkatan sosial pemakainya dalam masyarakat.",
+                question: "Apa yang dapat disimpulkan tentang sistem sosial masyarakat Bugis-Makassar dari tradisi warna Baju Bodo?",
+                options: [
+                    "Masyarakat Bugis-Makassar memiliki stratifikasi sosial yang jelas dan dihormati dalam kehidupan sehari-hari mereka",
+                    "Semua orang bebas memakai warna apa saja tanpa ada aturan khusus dalam pemilihan warna pakaian adat",
+                    "Warna pakaian tidak memiliki makna apapun dan hanya dipilih berdasarkan selera pribadi masing-masing orang",
+                    "Sistem sosial masyarakat Bugis tidak pernah berubah sejak zaman dahulu hingga sekarang tetap sama"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Dalam upacara Tingkeban untuk ibu hamil 7 bulan, dilakukan ritual siraman dan pecah kendil yang berisi air bunga. Kendil dipecahkan oleh suami dengan mata tertutup.",
+                question: "Apa makna filosofis dari ritual memecahkan kendil dalam upacara Tingkeban?",
+                options: [
+                    "Melambangkan doa agar proses kelahiran bayi berjalan lancar dan mudah seperti pecahnya kendil tersebut",
+                    "Menunjukkan kekuatan suami dalam melindungi keluarganya dari segala ancaman bahaya yang datang",
+                    "Merupakan cara untuk menghibur ibu hamil agar tidak stress menjelang proses persalinan yang berat",
+                    "Sebagai persyaratan adat yang harus dilakukan agar bayi yang lahir nanti menjadi anak yang kuat"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Tari Cakalele dari Maluku merupakan tarian perang yang dilakukan oleh pria dengan membawa parang dan perisai. Gerakan tariannya sangat energik dan penuh semangat.",
+                question: "Nilai apa yang ingin disampaikan melalui Tari Cakalele kepada generasi muda?",
+                options: [
+                    "Semangat keberanian, patriotisme, dan pantang menyerah dalam membela tanah air dan kehormatan bangsa",
+                    "Mengajarkan cara berperang yang benar agar bisa mengalahkan musuh dalam pertempuran yang sesungguhnya",
+                    "Menunjukkan bahwa kekerasan adalah cara terbaik untuk menyelesaikan setiap masalah dalam kehidupan",
+                    "Melatih kekuatan fisik agar menjadi prajurit yang kuat dan bisa mengangkat senjata yang berat"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Lagu Rasa Sayange dari Maluku telah dikenal hingga mancanegara. Liriknya mengungkapkan rasa sayang dan cinta kepada tanah air dan sesama manusia.",
+                question: "Mengapa lagu daerah seperti Rasa Sayange penting untuk dilestarikan?",
+                options: [
+                    "Sebagai identitas budaya bangsa yang mengajarkan nilai cinta kasih dan perlu diwariskan kepada generasi mendatang",
+                    "Agar Indonesia bisa menjadi terkenal di dunia internasional dan mendapatkan banyak wisatawan asing berkunjung",
+                    "Karena lagu modern tidak memiliki makna yang dalam dan hanya mengikuti trend musik yang ada saat ini",
+                    "Supaya anak-anak Indonesia bisa menang dalam kompetisi menyanyi di tingkat internasional antar negara"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Sape adalah alat musik petik tradisional Dayak Kalimantan yang terbuat dari kayu pilihan dengan ukiran khas. Suaranya yang merdu sering digunakan dalam upacara adat.",
+                question: "Apa yang membedakan Sape dengan alat musik petik modern seperti gitar?",
+                options: [
+                    "Sape memiliki nilai budaya dan filosofi masyarakat Dayak serta cara memainkan yang khas dengan teknik tradisional",
+                    "Sape lebih mudah dimainkan dibanding gitar karena hanya memiliki tiga sampai empat senar saja untuk dipetik",
+                    "Sape dibuat dengan teknologi modern yang lebih canggih sehingga menghasilkan suara yang lebih keras dari gitar",
+                    "Tidak ada perbedaan yang signifikan karena keduanya sama-sama alat musik petik yang dimainkan dengan cara sama"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Tradisi Bebie di Sumatera Selatan mengajarkan masyarakat untuk menanam padi secara bersama-sama dari mengolah sawah hingga memanen.",
+                question: "Apa manfaat sosial dari tradisi Bebie bagi masyarakat desa?",
+                options: [
+                    "Mempererat kebersamaan, meringankan beban pekerjaan, dan memperkuat rasa kekeluargaan antar warga desa setempat",
+                    "Memaksa semua warga untuk bekerja keras tanpa dibayar demi kepentingan para petani kaya yang memiliki sawah",
+                    "Membuat persaingan antar petani semakin ketat untuk menentukan siapa yang bisa panen paling banyak hasilnya",
+                    "Mengurangi produktivitas pertanian karena terlalu banyak orang yang bekerja di sawah yang sama pada waktu bersamaan"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Kolintang adalah alat musik dari Minahasa, Sulawesi Utara yang terdiri dari bilah-bilah kayu disusun berurutan sesuai nada dan dimainkan dengan pemukul.",
+                question: "Keterampilan apa yang berkembang pada anak yang belajar memainkan Kolintang?",
+                options: [
+                    "Kemampuan koordinasi mata dan tangan, kepekaan nada musik, serta kecerdasan dalam membaca notasi lagu tertentu",
+                    "Kekuatan otot lengan yang besar karena harus memukul bilah kayu dengan tenaga yang sangat keras",
+                    "Kemampuan berbicara di depan umum karena pemain Kolintang harus menjelaskan cara memainkannya kepada penonton",
+                    "Tidak ada keterampilan khusus yang berkembang karena Kolintang sangat mudah dimainkan oleh siapa saja tanpa latihan"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Ani berkunjung ke Papua dan melihat penduduk setempat membawa barang belanjaan menggunakan tas tradisional yang disebut Noken. Tas ini dibuat dengan teknik merenda dari kulit kayu.",
+                question: "Apa keunggulan Noken dibandingkan tas modern yang terbuat dari plastik?",
+                options: [
+                    "Noken ramah lingkungan karena terbuat dari bahan alami, kuat, dan tidak mencemari lingkungan seperti plastik",
+                    "Noken lebih murah harganya sehingga semua orang bisa membelinya dengan mudah di toko-toko modern",
+                    "Noken lebih ringan dan bisa menampung barang lebih banyak dibanding tas plastik berukuran sama besarnya",
+                    "Noken diproduksi secara massal oleh pabrik sehingga mudah didapatkan di semua daerah Indonesia tanpa kesulitan"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Dalam tradisi Kupatan setelah Idul Fitri, masyarakat Jawa saling berkunjung dan berbagi ketupat sebagai simbol permohonan maaf.",
+                question: "Mengapa ketupat dipilih sebagai simbol dalam tradisi Kupatan?",
+                options: [
+                    "Anyaman ketupat yang rapi melambangkan kesalahan manusia dan ketika dibuka menunjukkan kesucian seperti fitrah kembali",
+                    "Ketupat adalah makanan paling enak dan mahal sehingga cocok untuk disajikan kepada tamu yang berkunjung ke rumah",
+                    "Ketupat dipilih karena mudah dibuat dan bahan bakunya sangat murah sehingga semua orang bisa membuatnya",
+                    "Tidak ada makna khusus karena ketupat hanya makanan biasa yang kebetulan sering dibuat saat Idul Fitri"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Pak Doni mengajarkan siswa tentang sistem Pela dan Gandong di Maluku, yaitu ikatan persaudaraan antar negeri yang sangat kuat bahkan melampaui perbedaan agama.",
+                question: "Apa pelajaran penting yang dapat diambil dari tradisi Pela dan Gandong?",
+                options: [
+                    "Toleransi dan persaudaraan lebih penting dari perbedaan, sehingga kita harus hidup rukun meski berbeda keyakinan",
+                    "Setiap daerah harus memiliki hukum sendiri yang berbeda dan tidak boleh dicampuri oleh daerah lain",
+                    "Perbedaan agama harus dihilangkan agar masyarakat bisa hidup damai tanpa ada konflik di kemudian hari",
+                    "Tradisi kuno seperti ini sudah tidak relevan di zaman modern dan sebaiknya tidak perlu dilestarikan lagi"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Tari Serimpi dari Keraton Yogyakarta ditarikan dengan gerakan yang sangat halus dan anggun oleh empat penari wanita dengan kostum batik yang indah.",
+                question: "Nilai budaya apa yang tercermin dari gerakan Tari Serimpi yang lemah gemulai?",
+                options: [
+                    "Nilai keanggunan, kesopanan, dan kehalusan budi pekerti yang dijunjung tinggi dalam budaya Jawa tradisional",
+                    "Nilai kekuatan fisik yang luar biasa karena penari harus berlatih sangat keras untuk bisa menari dengan baik",
+                    "Nilai persaingan antar penari untuk menentukan siapa yang paling cantik dan paling pintar menari di keraton",
+                    "Tidak ada nilai khusus karena tarian ini hanya hiburan biasa untuk mengisi waktu luang para bangsawan"
+                ],
+                answer: 0
+            },
+            {
+                stimulus: "Rendang adalah makanan khas Minangkabau yang dimasak dalam waktu lama dengan bumbu-bumbu pilihan hingga menghasilkan cita rasa yang kaya dan tahan lama.",
+                question: "Apa yang dapat dipelajari dari proses pembuatan Rendang yang memerlukan waktu lama?",
+                options: [
+                    "Kesabaran dan ketekunan dalam mengerjakan sesuatu akan menghasilkan hasil yang berkualitas tinggi dan bermakna",
+                    "Makanan tradisional lebih sulit dibuat daripada makanan modern sehingga tidak efisien untuk dikonsumsi sehari-hari",
+                    "Semakin lama memasak makanan maka semakin mahal harganya dan semakin tinggi nilai jual di pasaran kuliner",
+                    "Tidak ada pelajaran khusus karena Rendang hanya makanan biasa yang kebetulan memerlukan waktu memasak lama"
+                ],
+                answer: 0
+            }
+        ];
+
+        let studentName = '';
+        let studentNumber = '';
+        let studentAnswers = [];
+        let shuffledQuestions = [];
+
+        function startQuiz() {
+            studentName = document.getElementById('studentName').value;
+            studentNumber = document.getElementById('studentNumber').value;
+            
+            if (!studentName || !studentNumber) {
+                alert('Mohon isi nama dan nomor absen terlebih dahulu!');
+                return;
+            }
+            
+            studentAnswers = [];
+            shuffledQuestions = shuffleArray([...quizQuestions]);
+            renderQuiz();
+            showSection('quizSection');
+        }
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = shuffledQuestions.map((q, index) => `
+                <div class="quiz-question">
+                    <p style="font-style: italic; margin-bottom: 10px; color: #666;">${q.stimulus}</p>
+                    <h4>Soal ${index + 1}. ${q.question}</h4>
+                    <div class="quiz-options">
+                        ${q.options.map((opt, optIndex) => `
+                            <label>
+                                <input type="radio" name="q${index}" value="${optIndex}">
+                                ${String.fromCharCode(65 + optIndex)}. ${opt}
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function submitQuiz() {
+            studentAnswers = [];
+            
+            // Kumpulkan jawaban (bisa ada yang kosong)
+            for (let i = 0; i < shuffledQuestions.length; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) {
+                    studentAnswers.push(parseInt(selected.value));
+                } else {
+                    studentAnswers.push(-1); // -1 untuk soal yang tidak dijawab
+                }
+            }
+            
+            // Konfirmasi jika ada soal yang belum dijawab
+            const unanswered = studentAnswers.filter(ans => ans === -1).length;
+            if (unanswered > 0) {
+                const confirm = window.confirm(`Masih ada ${unanswered} soal yang belum dijawab.\n\nApakah Anda yakin ingin mengumpulkan?`);
+                if (!confirm) {
+                    return;
+                }
+            }
+            
+            calculateScore();
+        }
+
+        function calculateScore() {
+            let correct = 0;
+            let answered = 0;
+            
+            shuffledQuestions.forEach((q, index) => {
+                if (studentAnswers[index] !== -1) {
+                    answered++;
+                    if (studentAnswers[index] === q.answer) {
+                        correct++;
+                    }
+                }
+            });
+            
+            // Hitung nilai berdasarkan soal yang dijawab benar
+            const score = (correct / shuffledQuestions.length) * 100;
+            let grade = '';
+            
+            if (score >= 90) grade = 'Sangat Baik (A)';
+            else if (score >= 80) grade = 'Baik (B)';
+            else if (score >= 70) grade = 'Cukup (C)';
+            else if (score >= 60) grade = 'Kurang (D)';
+            else grade = 'Sangat Kurang (E)';
+            
+            const resultText = `Nama: ${studentName} (No. ${studentNumber})\nSoal Dijawab: ${answered}/${shuffledQuestions.length} | Benar: ${correct}`;
+            
+            document.getElementById('resultName').innerHTML = `
+                <strong>${studentName}</strong> (No. ${studentNumber})<br>
+                <span style="font-size: 14px;">Dijawab: ${answered}/${shuffledQuestions.length} soal | Benar: ${correct} soal</span>
+            `;
+            document.getElementById('resultScore').textContent = Math.round(score);
+            document.getElementById('resultGrade').textContent = `Predikat: ${grade}`;
+            
+            showSection('quizResult');
+        }
+
+        function printResult() {
+            window.print();
+        }
+
+        function shareWhatsApp() {
+            const score = document.getElementById('resultScore').textContent;
+            const grade = document.getElementById('resultGrade').textContent;
+            
+            // Hitung jumlah soal yang dijawab
+            const answered = studentAnswers.filter(ans => ans !== -1).length;
+            const correct = studentAnswers.filter((ans, idx) => ans === shuffledQuestions[idx].answer).length;
+            
+            const message = `*Hasil Latihan Soal meKeLoTreng*\n\n` +
+                          `Nama: ${studentName}\n` +
+                          `No. Absen: ${studentNumber}\n` +
+                          `Soal Dijawab: ${answered}/${shuffledQuestions.length}\n` +
+                          `Jawaban Benar: ${correct} soal\n` +
+                          `Nilai: ${score}\n` +
+                          `${grade}\n\n` +
+                          `Materi: Keragaman Budaya dan Kearifan Lokal Indonesia`;
+            const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        function resetQuiz() {
+            document.getElementById('studentName').value = '';
+            document.getElementById('studentNumber').value = '';
+            studentName = '';
+            studentNumber = '';
+            studentAnswers = [];
+            showSection('quizIntro');
+        }
+
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+    </script>
+</body>
+</html>
